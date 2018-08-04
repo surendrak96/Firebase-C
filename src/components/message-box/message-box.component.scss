@@ -1,0 +1,45 @@
+message-box {
+    // all elements within  <message-box>
+display:flex;
+margin-bottom: 10px;
+
+.text {                             // class .text within the <message-box>
+background-color: #efefef;
+padding: 7px 5px;
+box-shadow: 1px 1px 3px #ccc;
+color: #333;
+overflow: auto;
+
+p {                            //all the paragraphs <p> within <message-box>
+font-size: 1.1em;
+margin: 0;
+}
+
+p.timestamp {                   //  <p>   timestamp
+font-size: 0.8em;
+margin-top: 5px;
+color: #999;
+}
+
+p ion-icon.first-icon {
+float: right;
+margin-left: -4px;
+}
+
+p ion-icon.second-icon {
+float: right;
+padding-left: 15px;
+}
+}
+
+.sender-background {
+background-color: #baf46e;
+// float: right !important;
+// background-color: map-get($colors, primary ); //use some theme variable
+
+}
+
+.already-read {
+color: map-get($colors, primary);
+}
+}

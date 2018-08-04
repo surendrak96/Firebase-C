@@ -1,0 +1,59 @@
+<ion-header>
+  <!-- <ion-navbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-navbar>
+-->
+<custom-logged-header [title]="view | capitalize: true"></custom-logged-header>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="view"><!-- this ng model will show which of the 2 tabs will show-->
+      <ion-segment-button value="chats">
+        Chats
+      </ion-segment-button>
+      <ion-segment-button value="users">
+        Users
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="filterItems($event)"></ion-searchbar>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <div [ngSwitch]="view">   <!-- the ng switch will stay listening to the ng model VIEW-->
+
+    <ion-list no-lines *ngSwitchCase=" 'chats' "> <!-- if the view is CHATS-->
+      <button ion-item *ngFor="let chat of chats | async" (click)="onChatOpen(chat)">
+        <ion-avatar item-start>
+          <img [src]="chat.photo || 'assets/imgs/no-photo.jpg'">
+        </ion-avatar>
+        <h2>{{ chat.title }}</h2>
+         <!-- if c.lastMessage is FALSE, it drops into else, which will call the element below (through #) -->
+        <!-- <p *ngIf="chat.lastMessage; else customMessage"> {{ chat.timeStamp | date: 'dd/MM/yyyy HH:mm'}} - {{ chat.lastMessage }}</p>
+        <ng-template #customMessage>
+          <p>No messages.</p>
+        </ng-template> -->
+        <p *ngIf="chat.lastMessage"> {{ chat.timeStamp | date: 'dd/MM/yyyy HH:mm'}} - {{ chat.lastMessage }}</p>
+        <p *ngIf="!chat.lastMessage">No messages.</p>
+      </button>
+    </ion-list>
+    <ion-list no-lines *ngSwitchCase=" 'users' "> <!-- if the view is USERS -->
+      <!-- the pipe (| async) is to expect to return the server's observable response  -->
+    <button ion-item *ngFor="let user of users | async" (click)="onChatCreate(user)">
+        <ion-avatar item-left>
+          <img [src]="user.photo || 'assets/imgs/no-photo.jpg'">
+        </ion-avatar>
+        {{user.name}}
+      </button>
+    </ion-list>
+
+  </div>
+
+  <button (click)="oneSignal()" > onesignal </button>
+</ion-content>
